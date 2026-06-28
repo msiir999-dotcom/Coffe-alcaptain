@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COFFEE ALCAPTAIN | القائمة الكاملة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: rgba(28, 28, 30, 0.45);
+            --primary-orange: #ff5100;
+            --primary-yellow: #ffcc00;
+            --text-beige: #f5f5f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth; /* سلاسة التحرك عند النزول */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-beige);
+            overflow-x: hidden;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        /* الخلفية الثابتة للأراغيل */
+        .shisha-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.12;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        #smoke-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 10px 20px;
+            position: relative;
+        }
+
+        .welcome-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .brand-subtitle {
+            font-size: 38px;
+            color: var(--primary-orange);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 12px rgba(255, 81, 0, 0.7),
+                0 0 25px rgba(255, 81, 0, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .welcome-desc {
+            font-size: 13px;
+            color: #aaa;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        /* حاوية المنيو الرئيسي للنزول لأسفل */
+        .scrolling-menu-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        /* تصميم المربع الشفاف الكبير لكل قسم */
+        .category-block {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        /* عنوان القسم باللون البرتقالي */
+        .category-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 81, 0, 0.2);
+            padding-bottom: 8px;
+            text-shadow: 0 0 8px rgba(255, 81, 0, 0.3);
+        }
+
+        /* تصميم السطر أو الكارت الخاص بالصنف داخل المربع الشفاف */
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .item-row:last-child {
+            border-bottom: none; /* إزالة الخط من آخر صنف */
+        }
+
+        .item-row:hover {
+            transform: translateX(-3px); /* حركة انسيابية ناعمة جداً عند التصفح */
+        }
+
+        .item-names {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* أسماء الأصناف باللون الأصفر */
+        .en-name {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--primary-yellow);
+            text-transform: uppercase;
+            text-shadow: 0 0 4px rgba(255, 204, 0, 0.15);
+        }
+
+        .ar-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--primary-yellow);
+            text-shadow: 0 0 4px rgba(255, 204, 0, 0.15);
+        }
+
+        .item-price {
+            font-size: 18px;
+            color: var(--text-beige);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        footer {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-item span.icon {
+            color: var(--primary-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shisha-background"></div>
+    <canvas id="smoke-canvas"></canvas>
+
+    <header>
+        <div class="welcome-container">
+            <div class="brand-subtitle">COFFEE ALCAPTAIN</div>
+            <p class="welcome-desc">أهلاً بكم في قوائمنا المميزة - تصفح بالنزول للأسفل</p>
+        </div>
+    </header>
+
+    <!-- حاوية الأصناف التنازلية (بدون سيرفر) -->
+    <div class="scrolling-menu-container">
+        
+        <!-- قسم الأراغيل -->
+        <div class="category-block">
+            <h2 class="category-title">💨 قسم الأراغيل</h2>
+            
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Double Apple</span>
+                    <span class="ar-name">| تفاحتين نخلة</span>
+                </div>
+                <div class="item-price">7,000 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Gum & Mint</span>
+                    <span class="ar-name">| علكة ونعناع</span>
+                </div>
+                <div class="item-price">6,000 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Watermelon Mint</span>
+                    <span class="ar-name">| رقي ونعناع</span>
+                </div>
+                <div class="item-price">6,500 د.ع</div>
+            </div>
+        </div>
+
+        <!-- قسم المشروبات الباردة -->
+        <div class="category-block">
+            <h2 class="category-title">🍹 المشروبات الباردة</h2>
+            
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Lemon Mint</span>
+                    <span class="ar-name">| ليمون ونعناع عصير</span>
+                </div>
+                <div class="item-price">4,500 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Iced Latte</span>
+                    <span class="ar-name">| آيس لاتيه</span>
+                </div>
+                <div class="item-price">5,000 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Mojito Blue</span>
+                    <span class="ar-name">| موهيتو أزرق</span>
+                </div>
+                <div class="item-price">4,000 د.ع</div>
+            </div>
+        </div>
+
+        <!-- قسم المشروبات الساخنة -->
+        <div class="category-block">
+            <h2 class="category-title">☕ المشروبات الساخنة</h2>
+            
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Turkish Coffee</span>
+                    <span class="ar-name">| قهوة تركية</span>
+                </div>
+                <div class="item-price">3,000 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Mix Tea</span>
+                    <span class="ar-name">| شاي مخدر هيل</span>
+                </div>
+                <div class="item-price">1,500 د.ع</div>
+            </div>
+
+            <div class="item-row">
+                <div class="item-names">
+                    <span class="en-name">Cappuccino</span>
+                    <span class="ar-name">| كابتشينو</span>
+                </div>
+                <div class="item-price">4,500 د.ع</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-info">
+            <div class="info-item">
+                <span class="icon">📍</span>
+                <span>الكرادة داخل</span>
+            </div>
+            <div class="info-item">
+                <span class="icon">📞</span>
+                <span style="direction: ltr;">077000000</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== محرك تأثير الدخان الطبيعي المتطور ====================
+        const canvas = document.getElementById('smoke-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const partyCount = 35;
+        const particles = [];
+
+        class SmokeParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 150;
+                this.size = Math.random() * 120 + 60;
+                this.speedY = -(Math.random() * 0.5 + 0.25);
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.18 + 0.05;
+                this.fadeRate = Math.random() * 0.0012 + 0.0006;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.opacity -= this.fadeRate;
+                if (this.opacity <= 0 || this.y < -this.size) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                gradient.addColorStop(0, `rgba(240, 240, 245, ${this.opacity})`);
+                gradient.addColorStop(0.3, `rgba(255, 110, 20, ${this.opacity * 0.25})`);
+                gradient.addColorStop(1, 'rgba(11, 11, 11, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < partyCount; i++) {
+            particles.push(new SmokeParticle());
+        }
+
+        function animateSmoke() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateSmoke);
+        }
+        animateSmoke();
+    </script>
+</body>
+</html>
